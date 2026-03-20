@@ -1,7 +1,6 @@
 package com.jdbc;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import com.jdbc.dao.EmployeeDao;
 import com.jdbc.dao.EmpoyeeDaoImpl;
@@ -50,11 +49,16 @@ public class Main {
 		
 //		Get all the Employees in form of List
 		
-		List<Employee> list = EmpDao.getAllEmp();
+//		List<Employee> list = EmpDao.getAllEmp();
+//		
+//		for(Employee emp1 : list) {
+//		    System.out.println(emp1);
+//		}
+//		
 		
-		for(Employee emp1 : list) {
-		    System.out.println(emp1);
-		}
+		
+		
+		
 		
 		
 	}
