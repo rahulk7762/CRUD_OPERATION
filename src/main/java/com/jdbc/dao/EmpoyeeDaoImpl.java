@@ -2,6 +2,7 @@ package com.jdbc.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,11 +25,11 @@ public class EmpoyeeDaoImpl implements EmployeeDao {
 		}
 	}
 	
-	public static final String INSERT_QUERY ="INSERT INTO employees(id,name,department,address,salary) VALUES (%d, '%s', '%s', '%s', %d)";
-	public static final String UPDATE_QUERY = "UPDATE employees SET name='%s', department='%s', address='%s', salary=%d WHERE id=%d";
-	public static final String DELETE_QUERY = "DELETE FROM employees WHERE id=%d";
-	public static final String GET_EMPLOYEEBYID = "SELECT * FROM employees WHERE id=%d";
-	public static final String GET_EMPLOYEEBYNAME = "SELECT * FROM employees WHERE name = '%s'";
+	public static final String INSERT_QUERY ="INSERT INTO employees(id, name, department, address, salary) VALUES (?, ?, ?, ?, ?)";
+	public static final String UPDATE_QUERY = "UPDATE employees SET name=?, department=?, address=?, salary=? WHERE id=?";
+	public static final String DELETE_QUERY = "DELETE FROM employees WHERE id=?";
+	public static final String GET_EMPLOYEEBYID = "SELECT * FROM employees WHERE id=?";
+	public static final String GET_EMPLOYEEBYNAME = "SELECT * FROM employees WHERE name = ?";
 	public static final String GET_ALLEMPLOYEES = "SELECT * FROM employees";
 	
 	
@@ -48,8 +49,13 @@ public class EmpoyeeDaoImpl implements EmployeeDao {
 	@Override
 	public void saveEmployee(Employee e) throws SQLException {
 		// TODO Auto-generated method stub
-		Statement statement = connection.createStatement();
-		statement.executeUpdate(String.format(INSERT_QUERY,e.getId(),e.getName(),e.getDepartment(),e.getAddress(),e.getSalary()));
+		PreparedStatement ps = connection.prepareStatement(INSERT_QUERY);
+		ps.setInt(1,e.getId());
+		ps.setString(2,e.getName());
+		ps.setString(3,e.getDepartment());
+		ps.setString(4,e.getAddress());
+		ps.setInt(5,e.getSalary());
+		ps.executeUpdate();
 		
 		System.out.println("EmpoyeeDaoImpl.saveEmployee()");
 	}

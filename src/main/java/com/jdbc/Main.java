@@ -12,7 +12,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		System.out.println("Main.main()");
 		
-		Employee emp = new Employee(7,"Rohit kumar","java","samastipur",35000);
+		Employee emp = new Employee(8,"Mohit kumar","java","samastipur",35000);
 
 		EmployeeDao EmpDao = new EmpoyeeDaoImpl();
 //		---------------->  Creating Table  < ---------------------
@@ -22,7 +22,7 @@ public class Main {
 		
 //		---------------->  Saving Employee in the Table  < ---------------------
 		
-//		EmpDao.saveEmployee(emp);
+		EmpDao.saveEmployee(emp);
 		
 //		---------------->  Updating Employee in the Table  < ---------------------
 		
