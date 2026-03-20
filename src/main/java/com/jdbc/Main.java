@@ -43,6 +43,7 @@ public class Main {
 		
 //		----------------->  Get Employee by their Name     <---------
 //		Employee e1 = EmpDao.getEmplbyName("Rohit kumar");
+//		Employee e1 = EmpDao.getEmplbyName("Rohit kumar' OR '1'='1");
 //		System.out.println(e1);
 		
 		
