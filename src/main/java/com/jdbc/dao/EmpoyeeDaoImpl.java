@@ -63,8 +63,15 @@ public class EmpoyeeDaoImpl implements EmployeeDao {
 	@Override
 	public void UpdateEmployee(Employee e) throws SQLException {
 		// TODO Auto-generated method stub
-		Statement statement = connection.createStatement();
-		statement.executeUpdate(String.format(UPDATE_QUERY, e.getName(),e.getDepartment(),e.getAddress(),e.getSalary(),e.getId()));
+		PreparedStatement ps = connection.prepareStatement(UPDATE_QUERY);
+		
+		ps.setString(1, e.getName());
+		ps.setString(2, e.getDepartment());
+		ps.setString(3, e.getAddress());
+		ps.setInt(4, e.getSalary());
+		ps.setInt(5,e.getId());
+		
+		ps.executeUpdate();
 		System.out.println("EmpoyeeDaoImpl.UpdateEmployee()");
 		
 	}
@@ -72,8 +79,9 @@ public class EmpoyeeDaoImpl implements EmployeeDao {
 	@Override
 	public void deleteEmployee(int id) throws SQLException {
 		// TODO Auto-generated method stub
-		Statement statement = connection.createStatement();
-		statement.executeUpdate(String.format(DELETE_QUERY,id));
+		PreparedStatement ps = connection.prepareStatement(DELETE_QUERY);
+		ps.setInt(1, id);
+		ps.executeUpdate();
 		System.out.println("EmpoyeeDaoImpl.deleteEmployee()");
 		
 	}
@@ -81,12 +89,9 @@ public class EmpoyeeDaoImpl implements EmployeeDao {
 	@Override
 	public Employee getEmplbyId(int id) throws SQLException {
 		// TODO Auto-generated method stub
-		
-		System.out.println("EmpoyeeDaoImpl.getEmplbyId()");
-		
-		
-		Statement statement = connection.createStatement();
-		ResultSet resultSet  =  statement.executeQuery(String.format(GET_EMPLOYEEBYID,id));
+	PreparedStatement ps = connection.prepareStatement(GET_EMPLOYEEBYID);
+	ps.setInt(1, id);
+		ResultSet resultSet  =  ps.executeQuery();
 		resultSet.next();
 		Employee emp = new Employee();
 		emp.setId(id);
@@ -94,6 +99,7 @@ public class EmpoyeeDaoImpl implements EmployeeDao {
 		emp.setDepartment(resultSet.getString(3));
 		emp.setAddress(resultSet.getString(4));
 		emp.setSalary(resultSet.getInt(5));
+		System.out.println("EmpoyeeDaoImpl.getEmplbyId()");
 		return emp;
 	}
 
@@ -103,8 +109,9 @@ public class EmpoyeeDaoImpl implements EmployeeDao {
 		System.out.println("EmpoyeeDaoImpl.getEmplbyName()");
 		
 		
-		Statement statement = connection.createStatement();
-		  ResultSet resultSet =  statement.executeQuery(String.format(GET_EMPLOYEEBYNAME,name));
+		PreparedStatement ps = connection.prepareStatement(GET_EMPLOYEEBYNAME);
+		ps.setString(1, name);
+		  ResultSet resultSet =  ps.executeQuery();
 		  resultSet.next();
 		  Employee emp = new Employee();
 		  emp.setId(resultSet.getInt(1));
@@ -121,8 +128,9 @@ public class EmpoyeeDaoImpl implements EmployeeDao {
 		
 		System.out.println("EmpoyeeDaoImpl.getAllEmp()");
 		
-		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery(String.format(GET_ALLEMPLOYEES));
+		PreparedStatement ps = connection.prepareStatement(GET_ALLEMPLOYEES);
+
+		ResultSet resultSet = ps.executeQuery();
 		
 		List<Employee> emplist = new ArrayList<>();
 		
